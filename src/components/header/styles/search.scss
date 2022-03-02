@@ -1,0 +1,26 @@
+.search-section{
+    
+    form{
+        .search-input {
+            border: 0;
+            border-bottom: 2px solid #ccc;
+            box-shadow: 2px 2px 1px #ccc;
+            text-align: center;
+    
+
+            &::placeholder{
+                font-weight: bold;
+                font-size: 15px;
+                color: #000;
+                letter-spacing: 1px;
+            }
+        }
+
+        .btn{
+            
+           &__icon{
+               margin:auto  15px
+           }
+        }
+    }
+}
