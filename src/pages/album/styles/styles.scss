@@ -1,0 +1,41 @@
+.album-section{
+    .card .img-artist{
+        align-items:center;
+        margin: 15px 0;
+       img{
+           border-radius: 100%;
+            margin-right: 15px;
+       }
+    }
+
+    .btn-selection{
+       .ecouter{
+           background-color: #e45050;
+           border-radius: 25px;
+           padding: 10px 45px;
+           color: #fff;
+            
+
+           .ico-play{
+               margin-right: 15px;
+           }
+          
+           &:hover{
+               background-color: #ff0000;
+           }
+       }
+       .ico-eye{
+        border: 1px solid #ff0000;
+        border-radius: 100%;
+        padding: 15px;
+        height: 20px;
+        margin-left: 18px;
+
+        &:hover{
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+    }
+    }
+}

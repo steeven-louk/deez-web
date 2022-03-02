@@ -6,7 +6,7 @@ import './styles/search.scss'
 import fetchJsonp from 'fetch-jsonp';
 import Listes from '../list/Listes';
 
-
+ 
 function Header() {
 
   const [query, setQuery] = useState([]);
@@ -36,9 +36,6 @@ function Header() {
     }
   }
 
-  console.log('=====kuyfgh===============================');
-  console.log('query',query);
-  console.log('====================================');
 
   useEffect(() => {
    fetchData();

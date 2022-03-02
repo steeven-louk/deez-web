@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom';
 
 import "./styles/styles.scss";
 
@@ -14,7 +15,7 @@ const Listes = ({ data }) => {
                 <img
                   src={item.album.cover_medium}
                   className="card-img-top"
-                  alt="..."
+                  alt={item.title}
                 />
                 <div className="card_icon">
                   <FontAwesomeIcon icon="fa-solid fa-play" className='icon' />
@@ -26,7 +27,7 @@ const Listes = ({ data }) => {
               <div className="card-body flex-column d-flex">
                 <div className="title-container card-title fw-bold text-capitalize d-flex justify-content-between">
                   <h5>{item.title}</h5>
-                  <a href="/">album</a>
+                  <Link to={`/album/${item.album.id}`} > Album</Link>
                 </div>
                 <span className="card-text">{item.artist.name}</span>
                 <span className="card-text">{item.album.title}</span>
@@ -35,7 +36,7 @@ const Listes = ({ data }) => {
             </div>
           </div>
         ))}
-    </section> 
+    </section>
   );
 };
 
