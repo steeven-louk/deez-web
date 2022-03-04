@@ -23,10 +23,6 @@ function Favorie() {
     localStorage.removeItem("data", item);
   };
 
-  console.log("====================================");
-  console.log("getfav", getFav);
-  console.log("====================================");
-
   const getTime = (time) => {
     let minutes = Math.floor(time / 60);
     let seconds = ("0" + Math.floor(time % 60)).slice(-2);
@@ -57,8 +53,7 @@ function Favorie() {
         {getFav.length === 0 ? (
           <h1>oooops veuillez rajouter des éléments dans les favories</h1>
         ) : (
-          <div className="mx-5">
-            <div className="col" key={getFav.id}>
+            <div className="col" key={getFav && getFav.id}>
               <div className="card bg-dark text-white">
                 <div className="card_image">
                   <img
@@ -67,14 +62,8 @@ function Favorie() {
                     alt={getFav.data && getFav.title}
                   />
                   <div className="card_icon">
-                    <FontAwesomeIcon
-                      icon={"fa-solid fa-play"}
-                      className="icon"
-                    />
-                    <FontAwesomeIcon
-                      icon="fa-solid fa-eye"
-                      className="icon eye"
-                    />
+
+                
                     <FontAwesomeIcon
                       icon="fa-solid fa-heart"
                       onClick={removeFromLocalStorage}
@@ -103,7 +92,6 @@ function Favorie() {
                 </div>
               </div>
             </div>
-          </div>
         )}
       </div>
     </section>

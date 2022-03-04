@@ -77,9 +77,8 @@ function Track() {
                       {getTrack.artist.name}
                       </Link>
                       )
-                      }
+                    }
                   
-                    
                   </h2>{" "}
                   <br />
                 </div>

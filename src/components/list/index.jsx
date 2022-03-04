@@ -24,7 +24,7 @@ const Listes = ({ data, loading }) => {
       {loading ? (
         data &&
         data.map((item) => (
-          <div className="col" key={data.id}>
+          <div className="col" key={item.id}>
             <div className="card bg-dark">
               <div className="card_image">
                 <img
