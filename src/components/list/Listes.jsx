@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
 
 import "./styles/styles.scss";
 
 const Listes = ({ data }) => {
+
+
+  const [wish, setWish] = useState(false);
+
+  const saveinLocalStorage =  (item) =>{
+    setWish(!wish);
+    localStorage.setItem('data', JSON.stringify(item) );
+  }
+  useEffect(() => {
+    saveinLocalStorage();
+  }, []);
+
   return (
     <section className="liste_section row row-cols-1 row-cols-md-4 g-4">
       {data &&
         data.map((item) => (
           <div className="col" key={data.id}>
-            <div className="card">
+            <div className="card bg-dark">
               <div className="card_image">
                 <img
                   src={item.album.cover_medium}
@@ -18,9 +30,9 @@ const Listes = ({ data }) => {
                   alt={item.title}
                 />
                 <div className="card_icon">
-                  <FontAwesomeIcon icon="fa-solid fa-play" className='icon' />
+                  <FontAwesomeIcon icon={'fa-solid fa-play'} className='icon' />
                   <FontAwesomeIcon icon="fa-solid fa-eye" className="icon eye" />
-                  <FontAwesomeIcon icon="fa-solid fa-heart" className='icon eye'/>
+                  <FontAwesomeIcon icon="fa-solid fa-heart" onClick={()=>saveinLocalStorage(item)} className={wish ? 'icon eye' : 'icon eye heart '}/>
 
                 </div>
               </div>
@@ -29,7 +41,7 @@ const Listes = ({ data }) => {
                   <h5>{item.title}</h5>
                   <Link to={`/album/${item.album.id}`} > Album</Link>
                 </div>
-                <span className="card-text">{item.artist.name}</span>
+                <Link to={`/artiste/${item.artist.id}`}> {item.artist.name} </Link>
                 <span className="card-text">{item.album.title}</span>
                 <span className="card-text duration">{item.duration}</span>
               </div>

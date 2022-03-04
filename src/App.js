@@ -1,9 +1,10 @@
-//import Header from "./components/header";
+import Header from "./components/header";
 //import Listes from "./components/list/Listes";
 //import Navbar from "./components/navbar";
 import { Route, Routes } from "react-router-dom";
-//import Album from "./pages/album/Album";
+import Album from "./pages/album/Album";
 import Artiste from "./pages/artiste";
+import Track from "./pages/track";
 
 function App() {
   return (
@@ -13,9 +14,14 @@ function App() {
     </div>
 
   
+     
    <Routes>
-     <Route path="/" exact element = {<Artiste />} />
-   </Routes>
+      <Route path="*" exact element={<Header/>} />
+      <Route path="/album/:id" element={ <Album />} />
+      <Route path="/artiste/:id" element = {<Artiste />} />
+      <Route path="/track/:id" element = {<Track />} />
+      
+    </Routes>
     
     
     </div>
@@ -24,9 +30,5 @@ function App() {
 
 export default App;
 /***
- *  <Routes>
-      <Route path="/" exact element={<Header/>} />
-      <Route path="/album/:id" exact element={ <Album />} />
-      
-    </Routes>
+ *  
  */

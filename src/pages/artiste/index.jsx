@@ -1,35 +1,96 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { Link } from "react-router-dom";
+import fetchJsonp from "fetch-jsonp";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import "./styles/styles.scss";
 
 function Artiste() {
+
+    const [artiste, setArtiste] = useState([]);
+    const [tracklist, setTracklist] = useState([]);
+    const { id } = useParams();
+    const artisteUrl = `https://api.deezer.com/artist/${id}&output=jsonp`;
+    const artisteTracklist = `https://api.deezer.com/artist/${id}/top?limit=10/&output=jsonp`;
+
+
+    const fetchArtiste = async () => {
+        try {
+          await fetchJsonp(artisteUrl)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (json) {
+              setArtiste(json);
+              console.log("====================================");
+              console.log(json);
+              console.log("====================================");
+            });
+        } catch (error) {
+          console.log("err", error);
+        }
+      }
+
+      const fetchTracklist = async () => {
+        try {
+          await fetchJsonp(artisteTracklist)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (json) {
+              setTracklist(json.data);
+              console.log("====================================");
+              console.log(json.data);
+              console.log("====================================");
+            });
+        } catch (error) {
+          console.log("err", error);
+        }
+      }
+
+      const getTime = (time) => {
+  
+        let minutes = Math.floor(time / 60);
+        let seconds = ("0" + Math.floor(time % 60)).slice(-2);
+        return minutes + ":" + seconds;
+      };
+    
+      
+      useEffect(() => {
+          fetchArtiste();
+          fetchTracklist();
+      }, []);
+
+      console.log('====================================');
+      console.log('artiste_tracklist',tracklist);
+      console.log('====================================');
+    
+
   return (
     <section className="artiste-section">
       <div className="container">
-        <div className="card card-artiste">
+        <div className="card bg-dark card-artiste">
           <div className="row g-0 d-flex">
             <div className="col-md-4">
               <img
-                src="https://e-cdns-images.dzcdn.net/images/artist/f2bc007e9133c946ac3c3907ddc5d2ea/500x500-000000-80-0-0.jpg"
+                src={artiste.picture_big}
                 className="img-fluid artist-img"
-                alt="..."
+                alt={artiste.name}
               />
             </div>
             <div className="col-md-8">
               <div className="card-body flex-column">
-                <h1 className="card-title text-capitalize fw-bold"> damso </h1>
+                <h1 className="card-title text-capitalize fw-bold"> {artiste.name} </h1>
                 <div className="card-text img-artist">
-                  <h4>Nombre d'album : 52</h4>
-                  <h4>5125125 fans</h4>
+                  <h4>Nombre d'album : {artiste.nb_album}</h4>
+                  <h4>{artiste.nb_fan} fans</h4>
                 </div>
 
                 <div className="card-footer shadow">
                   <a
-                    href="/"
+                    href={artiste.link}
                     rel="noreferrer"
                     target="_blank"
-                    className="btn btn-success"
+                    className="btn btn-danger text-white"
                   >
                     fiche artiste
                   </a>
@@ -51,35 +112,30 @@ function Artiste() {
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">titre</th>
+                  <th scope="col">TITRE</th>
                   <th scope="col">DUREE</th>
-                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                {tracklist.map(track =>(
+                    <tr key={track.id}>
                   <th scope="row">1</th>
                   <td>
-                    titre <br />
-                    <span className="text-muted">ceci son r</span>
+                    {track.title}
+                     <br />
+                    <span className="text-muted">{track.artist.name}</span>
                   </td>
-                  <td>Otto</td>
-                  <td className="icon-cell">
+                  <td>{getTime(track.duration)}</td>
+                  <td className="icon-cell text-center pt-3">
                     <FontAwesomeIcon icon="fa-solid fa-play" className="icon"/>
+                  </td>
+                  <td className="icon-cell text-center pt-3">
                     <FontAwesomeIcon icon="fa-solid fa-heart" className="icon"/>
                   </td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+                ))}
+               
+                
               </tbody>
             </table>
 
@@ -87,7 +143,7 @@ function Artiste() {
         </div>
 
 
-        <div className="list-album mt-4">
+        <div className="list-album mt-5">
 
           <div className="title-album">
             <h2 className="text-uppercase fw-bold">album</h2>
@@ -95,13 +151,14 @@ function Artiste() {
           </div>
 
           <section className="liste_section row row-cols-1 row-cols-md-4 g-4">
-            <div className="col">
-              <div className="card">
+                    {tracklist.map(albumList =>(
+                        <div className="col">
+              <div className="card bg-dark">
                 <div className="card_image">
                   <img
-                    src="https://e-cdns-images.dzcdn.net/images/cover/b298094528702627877720d0be4448b5/250x250-000000-80-0-0.jpg"
+                    src={albumList.album.cover_medium}
                     className="card-img-top"
-                    alt="{item.title}"
+                    alt={albumList.artist.name}
                   />
                   <div className="card_icon">
                     <FontAwesomeIcon icon="fa-solid fa-play" className="icon" />
@@ -118,14 +175,15 @@ function Artiste() {
 
                 <div className="card-body flex-column d-flex">
                   <div className="title-container card-title fw-bold text-capitalize d-flex justify-content-between">
-                    <h5>album title</h5>
-                    <Link to={`/album/$`}> Album</Link>
+                    <h5>{albumList.album.title}</h5>
+                    <Link to={`/album/${albumList.album.id}`}> Album</Link>
                   </div>
-                  <h5>de damso</h5>
+                  <h5>de {albumList.artist.name}</h5>
 
                 </div>
               </div>
             </div>
+                    ))}
           </section>
         </div>
       </div>
