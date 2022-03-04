@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./styles/styles.scss";
+
 import fetchJsonp from "fetch-jsonp";
-import {  Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import TrackList from "../../components/trackList";
+import "./styles/styles.scss";
 
 function Album() {
   const [getalbum, setAlbum] = useState([]);
@@ -27,25 +27,34 @@ function Album() {
     } catch (error) {
       console.log("err", error);
     }
-  }
-  
+  };
+
   const getTime = (time) => {
-  
     let minutes = Math.floor(time / 60);
     let seconds = ("0" + Math.floor(time % 60)).slice(-2);
     return minutes + ":" + seconds;
   };
 
-
   return (
     <section className="album-section">
+      <nav className="px-5 breadcrumb-nav" aria-label="breadcrumb">
+        <ol className="breadcrumb fw-bold texty-capitalize">
+          <li className="breadcrumb-item">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            album
+          </li>
+        </ol>
+      </nav>
+
       <div className="container">
         <div className="card bg-dark">
           <div className="row g-0">
             <div className="col-md-4">
               <img
                 src={getalbum.cover_medium}
-                className="img-fluid rounded-start"
+                className="img-fluid cover rounded-start"
                 alt="..."
               />
             </div>
@@ -57,14 +66,20 @@ function Album() {
                 <div className="card-text d-flex img-artiste">
                   <img
                     src={getalbum.artist && getalbum.artist.picture_small}
-                    alt=''
+                    alt=""
                   />
-                  <h3 className="text-capitalize">{getalbum.artist && <Link to={`/artiste/${getalbum.artist.id}`}>{getalbum.artist.name}</Link>}</h3>
+                  <h3 className="text-capitalize">
+                    {getalbum.artist && (
+                      <Link to={`/artiste/${getalbum.artist.id}`}>
+                        {getalbum.artist.name}
+                      </Link>
+                    )}
+                  </h3>
                 </div>
                 <div className="card-text">
                   <small className="text-muted fw-bold">
-                    {getTime(getalbum.duration)} min - {getalbum.release_date} / {getalbum.fans} {" "}
-                    fans
+                    {getTime(getalbum.duration)} min / {getalbum.release_date} /{" "}
+                    {getalbum.fans} fans
                   </small>
                 </div>
                 <div className="card-footer">
@@ -82,20 +97,9 @@ function Album() {
           </div>
         </div>
 
-        <div className="btn-selection mt-4 d-flex">
-          <a
-            href="/"
-            className="btn ecouter text-center round text-uppercase fw-bolder"
-          >
-
-            <FontAwesomeIcon icon="fa-solid fa-play" className="ico-play" />
-            écouter
-          </a>
-          <FontAwesomeIcon icon="fa-solid fa-heart" className="ico-eye" />
-        </div>
-
+        
         {getalbum.tracks ? (
-          <TrackList data={getalbum.tracks.data} key={getalbum.id} />
+          <TrackList data={getalbum.tracks.data} keyData={getalbum.id} />
         ) : (
           ""
         )}
@@ -105,5 +109,3 @@ function Album() {
 }
 
 export default Album;
-// style="max-width: 540px;
-//

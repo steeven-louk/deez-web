@@ -1,8 +1,9 @@
 .liste_section{
+
     margin-top: 15px;
+    
     .card {
 
-      //  width: 250px;
         border-radius: 15px;
         .card_image {
             position: relative;
@@ -42,7 +43,10 @@
 
                 .eye{
                     display: none;
-
+                    
+                    @media screen and (max-width:750px) {
+                        display: inline-block;
+                    }
                    
                 }
             }
