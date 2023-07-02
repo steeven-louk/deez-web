@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import fetchJsonp from "fetch-jsonp";
 import { Link, useParams } from "react-router-dom";
 import TrackList from "../../components/trackList";
-import "./styles/styles.scss";
+import "./styles/styles.css";
 
 function Album() {
   const [getalbum, setAlbum] = useState([]);
@@ -11,10 +11,8 @@ function Album() {
   const { id } = useParams();
   const albumUrl = `https://api.deezer.com/album/${id}&output=jsonp`;
 
-  useEffect(() => {
-    fetchAlbum();
-  }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchAlbum = async () => {
     try {
       await fetchJsonp(albumUrl)
@@ -28,6 +26,11 @@ function Album() {
       console.log("err", error);
     }
   };
+
+  
+  useEffect(() => {
+    fetchAlbum();
+  }, [fetchAlbum]);
 
   const getTime = (time) => {
     let minutes = Math.floor(time / 60);

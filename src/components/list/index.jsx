@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-import "./styles/styles.scss";
+import "./styles/styles.css";
 
 const Listes = ({ data, loading }) => {
 
   const [wish, setWish] = useState(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const saveinLocalStorage = (item) => {
 
     setWish(!wish);
@@ -17,7 +18,7 @@ const Listes = ({ data, loading }) => {
   ;
   useEffect(() => {
     saveinLocalStorage();
-  }, []);
+  }, [saveinLocalStorage]);
 
   return (
     <section className="liste_section row row-cols-1 row-cols-md-4 g-4">

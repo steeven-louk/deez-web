@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import "./styles/styles.scss";
+import "./styles/styles.css";
 
 function Favorie() {
   const [getFav, setGetFav] = useState([]);

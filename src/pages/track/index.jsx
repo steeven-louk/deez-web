@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import fetchJsonp from "fetch-jsonp";
 import { Link, useParams } from "react-router-dom";
-import "./styles/styles.scss";
+import "./styles/styles.css";
 
 function Track() {
   const [getTrack, setTrack] = useState([]);
@@ -9,10 +9,9 @@ function Track() {
   const { id } = useParams();
   const trackUrl = `https://api.deezer.com/track/${id}&output=jsonp`;
 
-  useEffect(() => {
-    fetchTrack();
-  }, []);
 
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchTrack = async () => {
     try {
       await fetchJsonp(trackUrl)
@@ -27,9 +26,14 @@ function Track() {
     }
   };
 
+  useEffect(() => {
+    fetchTrack();
+  }, [fetchTrack]);
+
   const getTime = (time) => {
     let minutes = Math.floor(time / 60);
     let seconds = ("0" + Math.floor(time % 60)).slice(-2);
+    // eslint-disable-next-line no-useless-concat
     return minutes + "min" + ":" + seconds + "s";
   };
 

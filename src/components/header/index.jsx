@@ -3,7 +3,7 @@ import React, {  useState, useEffect } from 'react';
 import { SearchOutlined } from '@material-ui/icons';
 import fetchJsonp from 'fetch-jsonp';
 import Listes from '../list';
-import './styles/search.scss'
+import './styles/search.css'
 
  
 function HeaderComp() {
@@ -16,6 +16,7 @@ function HeaderComp() {
 
   const searchUrl = `https://api.deezer.com/search?q=${input}&order=${filtre}&output=jsonp`
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchData = async () =>{
     
     try {
@@ -38,7 +39,7 @@ function HeaderComp() {
 
   useEffect(() => {
       fetchData();
-  }, []);
+  }, [fetchData]);
 
   useEffect(() => (''), [filtre])
 
