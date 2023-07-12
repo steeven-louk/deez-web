@@ -12,23 +12,24 @@ function Track() {
 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchTrack = async () => {
-    try {
-      await fetchJsonp(trackUrl)
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (json) {
-          setTrack(json);
-        });
-    } catch (error) {
-      console.log("err", error);
-    }
-  };
+
 
   useEffect(() => {
+    const fetchTrack = async () => {
+      try {
+        await fetchJsonp(trackUrl)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            setTrack(json);
+          });
+      } catch (error) {
+        console.log("err", error);
+      }
+    };
     fetchTrack();
-  }, [fetchTrack]);
+  }, [trackUrl]);
 
   const getTime = (time) => {
     let minutes = Math.floor(time / 60);

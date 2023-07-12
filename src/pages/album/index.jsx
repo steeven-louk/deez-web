@@ -13,24 +13,25 @@ function Album() {
 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchAlbum = async () => {
-    try {
-      await fetchJsonp(albumUrl)
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (json) {
-          setAlbum(json);
-        });
-    } catch (error) {
-      console.log("err", error);
-    }
-  };
+
 
   
   useEffect(() => {
+    const fetchAlbum = async () => {
+      try {
+        await fetchJsonp(albumUrl)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            setAlbum(json);
+          });
+      } catch (error) {
+        console.log("err", error);
+      }
+    };
     fetchAlbum();
-  }, [fetchAlbum]);
+  }, [albumUrl]);
 
   const getTime = (time) => {
     let minutes = Math.floor(time / 60);
