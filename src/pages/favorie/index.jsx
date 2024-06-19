@@ -9,13 +9,13 @@ function Favorie() {
 
   const getItemWithLocalStorage = async (item) => {
     try {
-      const local = await localStorage.getItem("data", item);
+      const local =  localStorage.getItem("data", item);
 
       if (local) {
         return setGetFav(JSON.parse(local));
       }
     } catch (error) {
-      console.warn("err :", error.message);
+      console.log("err :", error.message);
     }
   };
 

@@ -7,12 +7,19 @@ import "./styles/styles.css";
 const Listes = ({ data, loading }) => {
 
   const [wish, setWish] = useState(false);
-
+  const [favorie,setInFavorie] = useState([])
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   const saveinLocalStorage = (item) => {
 
     setWish(!wish);
-      localStorage.setItem("data", JSON.stringify(item));
+    const t = []
+    t.push(item)
+      setInFavorie(t)
+      const d = t?.map(item =>  item.id)
+      if(!d) return t.push(item)
+        console.log(t)
+      localStorage.setItem("data", JSON.stringify(favorie));
 
   }
   ;
@@ -23,19 +30,18 @@ const Listes = ({ data, loading }) => {
   return (
     <section className="liste_section row row-cols-1 row-cols-md-4 g-4">
       {loading ? (
-        data &&
-        data.map((item) => (
-          <div className="col" key={item.id}>
+        data?.map((item) => (
+          <div className="col" key={item?.id}>
             <div className="card bg-dark">
               <div className="card_image">
                 <img
-                  src={item.album.cover_medium}
+                  src={item?.album?.cover_medium}
                   className="card-img-top"
-                  alt={item.title}
+                  alt={item?.title}
                 />
                 <div className="card_icon">
 
-                  <Link to={`/album/${item.album.id}`}>
+                  <Link to={`/album/${item?.album.id}`}>
                     <FontAwesomeIcon
                       icon="fa-solid fa-eye"
                       className="icon eye"
@@ -55,7 +61,7 @@ const Listes = ({ data, loading }) => {
                 </div>
                 <Link to={`/artiste/${item.artist.id}`}>
                   {" "}
-                  {item.artist.name}{" "}
+                  {item?.artist.name}{" "}
                 </Link>
                 <span className="card-text">{item.album.title}</span>
                 <span className="card-text duration">{item.duration}</span>
