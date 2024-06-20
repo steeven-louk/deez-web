@@ -47,6 +47,8 @@ function Artiste() {
     return minutes + ":" + seconds;
   };
 
+  console.log(tracklist)
+
   useEffect(() => {
     fetchArtiste();
     fetchTracklist();

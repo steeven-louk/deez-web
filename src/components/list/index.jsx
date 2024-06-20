@@ -16,9 +16,7 @@ const Listes = ({ data, loading }) => {
     const t = []
     t.push(item)
       setInFavorie(t)
-      const d = t?.map(item =>  item.id)
-      if(!d) return t.push(item)
-        console.log(t)
+     
       localStorage.setItem("data", JSON.stringify(favorie));
 
   }
@@ -50,7 +48,7 @@ const Listes = ({ data, loading }) => {
                   <FontAwesomeIcon
                     icon="fa-solid fa-heart"
                     onClick={() => saveinLocalStorage(item)}
-                    className={wish ? "icon eye" : "icon eye heart "}
+                    className={!wish ? "icon eye" : "icon eye heart "}
                   />
                 </div>
               </div>
